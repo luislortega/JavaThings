@@ -1,2 +1,2 @@
 # JavaThings
-👨🏽‍💻  Repository for java stuff
+👨🏽‍💻  Repository for Java stuff
