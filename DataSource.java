@@ -39,22 +39,30 @@ public class DataSource {
 
     public void loadData(String f) throws IOException {
         Scanner input = new Scanner(DATAFILE);
-        String fn;
-        String ln;
-        if (!DATAFILE.exists())
+        // => Eliminamos estas lineas por el tiempo de vida inecesario 
+        /*String fn;
+        String ln;*/
+        
+        // => Esto es un if redundante
+        /*if (!DATAFILE.exists())
         else
+            System.out.println("Existe");*/
+        if (DATAFILE.exists())
             System.out.println("Existe");
+
         int numOfAccounts;
         char accountType;
         Customer customer;
+        
+        //idx es remplazado por customerId ya que hay otro bucle anidado y idx no me da una clara referencia de que es lo que se esta contando.
         int numOfCustomers = input.nextInt();
-        for ( int idx = 0; idx < numOfCustomers; idx++ ) {
-        fn = input.next();
-        ln = input.next();
-        Bank.addCustomer(fn, ln);
-        customer = Bank.getCustomer(idx);
-        numOfAccounts = input.nextInt();
-        System.out.println(numOfCustomers);
+        for ( int customerId = 0; customerId < numOfCustomers; customerId++ ) {
+            String fn = input.next();
+            String ln = input.next();
+            Bank.addCustomer(fn, ln);
+            customer = Bank.getCustomer(customerId);
+            numOfAccounts = input.nextInt();
+            System.out.println(numOfCustomers);
             while ( numOfAccounts-- > 0 ) {
                 accountType = input.next().charAt(0);
                 switch ( accountType ) {
