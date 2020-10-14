@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class DataSource {
-
+    
     private final File DATAFILE;
     
     public DataSource(String dataFilePath) {
@@ -50,30 +50,34 @@ public class DataSource {
         if (DATAFILE.exists())
             System.out.println("Existe");
 
-        int numOfAccounts;
+        //Removi estas lineas afuera del bucle por que adentro se pueden crear sin problema alguno y lo hace mas legible.
+        /*int numOfAccounts;
         char accountType;
-        Customer customer;
+        Customer customer;*/
         
         //idx es remplazado por customerId ya que hay otro bucle anidado y idx no me da una clara referencia de que es lo que se esta contando.
         int numOfCustomers = input.nextInt();
         for ( int customerId = 0; customerId < numOfCustomers; customerId++ ) {
-            String fn = input.next();
-            String ln = input.next();
-            Bank.addCustomer(fn, ln);
-            customer = Bank.getCustomer(customerId);
-            numOfAccounts = input.nextInt();
+            //=> fn y ln son variables demasiado cortas y no dan una referencia clara de que lo que esta obteniendo.
+            /*String fn = input.next();
+            String ln = input.next();*/
+            String firstName = input.next();
+            String lastName = input.next();
+            Bank.addCustomer(firstName, lastName);
+            Customer customer = Bank.getCustomer(customerId);
+            int numOfAccounts = input.nextInt();
             System.out.println(numOfCustomers);
-            while ( numOfAccounts-- > 0 ) {
-                accountType = input.next().charAt(0);
-                switch ( accountType ) {
+            while (numOfAccounts-- > 0 ) {
+                char accountType = input.next().charAt(0);
+                //initBalance estaba duplicado
+                double initBalance = Float.parseFloat(input.next());
+                switch (accountType) {
                     case 'S': {
-                        double initBalance = Float.parseFloat(input.next());
                         double interestRate = Float.parseFloat(input.next());
                         customer.addAccount(new SavingsAccount(initBalance,interestRate));
                         break;
                     }
                     case 'C': {
-                        float initBalance = Float.parseFloat(input.next());
                         float overdraftProtection = Float.parseFloat(input.next());
                         customer.addAccount(new CheckingAccount(initBalance, overdraftProtection));
                         break;
@@ -85,7 +89,7 @@ public class DataSource {
     public void generateCustomerReport() {
         System.out.println("\t\t\tCUSTOMERS REPORT");
         System.out.println("\t\t\t================");
-        for ( int cust_idx = 0; cust_idx < Bank.getNumOfCustomers(); cust_idx++ ) {
+        for (int cust_idx = 0; cust_idx < Bank.getNumOfCustomers(); cust_idx++ ) {
             Customer customer = Bank.getCustomer(cust_idx);
             System.out.println("Customer: " + customer.getLastName() + ", " + customer.getFirstName());
         }
