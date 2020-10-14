@@ -19,7 +19,7 @@ d. Toda cuenta bancaria tiene un balance, dato que contiene el valor monetario d
 cuenta bancaria, y que nunca debe ser menor que cero. Por otro lado, toda cuenta
 bancaria mantiene actualizado su balance a través de dos operaciones: retirando
 dinero de la cuenta y depositando dinero a la cuenta
-e. Existen dos tipos de cuentas bancarias: Cuentas de cheques y Cuentas de ahorros.
+e. Existen dos tipos de cuentas bancarias: Cuentas de cheques y Cuentas de ahorros. [X]
 f. La información de las transacciones bancarias se guarda en un archivo de texto, al
 cual se tiene acceso para la generación de los reportes correspondientes.
  */
@@ -30,14 +30,15 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class DataSource {
-    
+
     private final File DATAFILE;
     
     public DataSource(String dataFilePath) {
         this.DATAFILE = new File(dataFilePath);
     }
 
-    public void loadData(String f) throws IOException {
+    //Teniendo en cuenta la descripcion, posiblemente por parametro reciba el archivo y f no explica exactamente que es lo que se recibe
+    public void loadData(String fileName) throws IOException {
         Scanner input = new Scanner(DATAFILE);
         // => Eliminamos estas lineas por el tiempo de vida inecesario 
         /*String fn;
@@ -89,8 +90,9 @@ public class DataSource {
     public void generateCustomerReport() {
         System.out.println("\t\t\tCUSTOMERS REPORT");
         System.out.println("\t\t\t================");
-        for (int cust_idx = 0; cust_idx < Bank.getNumOfCustomers(); cust_idx++ ) {
-            Customer customer = Bank.getCustomer(cust_idx);
+        //cust_idx es remplazado por customerId esta usando una convencion de nombramiento con _ y inicialmente se esta usando camelcase con el inicio en minuscula. 
+        for (int customerId = 0; customerId < Bank.getNumOfCustomers(); customerId++) {
+            Customer customer = Bank.getCustomer(customerId);
             System.out.println("Customer: " + customer.getLastName() + ", " + customer.getFirstName());
         }
     }
